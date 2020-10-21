@@ -1,10 +1,6 @@
 -- AppleScript to create a new file in Finder
 --
--- originally from: https://gist.github.com/rarylson/5d20fc96335851365a02
---
 -- *** The following avoids a system warning about sending Keystrokes
--- *** Improves on the file creation if filename exists
--- ----------
 -- Use it in Automator, with the following configuration:
 -- With Automater:
 -- Create Application
@@ -21,9 +17,7 @@
 -- Save service
 ----------------------------------------------
 -- System Preferences > Security & Privacy > Accessibility: Add Somewhere.app to the permissions
--- System Preferences > Keyboard > Shortcuts > Services: Give SomewhereScript a shortcut (eg: ⌃+⌘+⇪+N)
-----------------------------------------------
--- If security warnings persist: Remove from Accessibility and then re-add.
+-- System Preferences > Keyboard > Shortcuts > Services: Give SomewhereScript a shortcut
 ----------------------------------------------
 
 set file_name to text returned of (display dialog "Type your new filename.ext (Blank extension will be txt)" default answer "untitled")
@@ -33,7 +27,7 @@ end if
 
 if hasExtension(file_name) then
 	set tmpExtension to getExtension(file_name)
-	set file_name to getFileName(file_name, tmpExtension)
+	set file_name to getFileName(file_name)
 	set file_ext to tmpExtension
 else
 	set file_ext to "txt"
@@ -105,10 +99,11 @@ on getExtension(filename)
 	return extension
 end getExtension
 
-on getFileName(filename, ext)
-	set fnCount to count of filename
-	set fnCount to fnCount - (count of ext) - 1
-	set res to characters 1 thru fnCount of filename
-	set together to res as string
-	return together
+on getFileName(filename)
+	set AppleScript's text item delimiters to "."
+	set textSplits to text items of filename
+	set counter to count text items of textSplits
+	set filename to text 1 thru 2 of textSplits as string
+	set AppleScript's text item delimiters to ""
+	return filename
 end getFileName
