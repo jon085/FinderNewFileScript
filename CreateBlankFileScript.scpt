@@ -23,6 +23,8 @@
 -- System Preferences > Security & Privacy > Accessibility: Add Somewhere.app to the permissions
 -- System Preferences > Keyboard > Shortcuts > Services: Give SomewhereScript a shortcut (eg: ⌃+⌘+⇪+N)
 ----------------------------------------------
+-- If security warnings persist: Remove from Accessibility and then re-add.
+----------------------------------------------
 
 set file_name to text returned of (display dialog "Type your new filename.ext (Blank extension will be txt)" default answer "untitled")
 if file_name is "" then
@@ -34,7 +36,7 @@ if hasExtension(file_name) then
 	set file_name to getFileName(file_name, tmpExtension)
 	set file_ext to tmpExtension
 else
-	set file_ext to ".txt"
+	set file_ext to "txt"
 end if
 
 set is_desktop to false
