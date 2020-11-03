@@ -21,6 +21,8 @@
 ----------------------------------------------
 -- If security keeps warning of alterations: Remove from Accessibility and re-add this.
 ----------------------------------------------
+global file_name
+global file_ext
 
 set file_name to text returned of (display dialog "Type your new filename.ext (Blank extension will be txt)" default answer "untitled")
 if file_name is "" then
@@ -105,7 +107,7 @@ on getFileName(filename)
 	set AppleScript's text item delimiters to "."
 	set textSplits to text items of filename
 	set counter to count text items of textSplits
-	set filename to text 1 thru 2 of textSplits as string
+	set filename to text 1 thru (counter - 1) of textSplits as string
 	set AppleScript's text item delimiters to ""
 	return filename
 end getFileName
