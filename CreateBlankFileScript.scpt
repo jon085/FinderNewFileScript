@@ -21,8 +21,6 @@
 ----------------------------------------------
 -- If security keeps warning of alterations: Remove from Accessibility and re-add this.
 ----------------------------------------------
-global file_name
-global file_ext
 
 set file_name to text returned of (display dialog "Type your new filename.ext (Blank extension will be txt)" default answer "untitled")
 if file_name is "" then
